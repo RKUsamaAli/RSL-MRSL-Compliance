@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Print stylesheet (C14) — clean A4 clinical record.
+   Rule: print what was RECORDED, not the empty form.
+   ========================================================================== */
+@media print{
+  @page{size:A4 portrait; margin:12mm 10mm 14mm}
+
+  .proto-ribbon,.appbar,.side,.pagebar,.actionbar,.picker-bar,.modal-back,
+  .change-note,.callout,.btn,.icon-btn,.nt-btn,.row-tools,
+  .vsummary,.ph-grid,details.ref,.progress-mini,.save-state,
+  .grid-legend{display:none!important}
+
+  body{background:#fff;font-size:10.5pt;color:#000}
+  .page{margin:0;padding:0}
+  .wrap{max-width:none}
+
+  section.card{
+    display:block;page-break-inside:auto;border:1px solid #bbb;border-radius:0;
+    box-shadow:none;margin-bottom:10px;
+  }
+  section.card.hidden{display:none}
+  .card > .ch{
+    padding:5px 10px;page-break-after:avoid;border-bottom:1px solid #ccc;
+    background:#eef2f1!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .card > .ch h2{font-size:11pt}
+  .card > .ch .num{background:#14594b!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .card > .cb{padding:8px 10px}
+
+  .pcard{border:none;border-bottom:2px solid #14594b;border-radius:0;box-shadow:none;padding:0 0 8px;margin-bottom:10px}
+  .prow3{display:none}
+  .pmeta{margin-left:auto}
+  .precaution-banner{
+    position:static!important;box-shadow:none!important;
+    background:#fdeceb!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+    border:2px solid #b02a1f;page-break-inside:avoid;
+  }
+
+  /* hide empty inputs & unselected options — C14 */
+  input:not([type=checkbox]):not([type=radio]).is-empty,
+  textarea.is-empty,select.is-empty{display:none}
+  .field.is-empty{display:none}
+  .pill:not(.on){display:none}
+  .pill.on{background:#fff!important;color:#000!important;border:1px solid #333!important;font-weight:700}
+  .pill .tick{display:none}
+  .pills:empty{display:none}
+  .radios label.unchecked{display:none}
+
+  input,select,textarea{border:none!important;border-bottom:1px solid #999!important;border-radius:0!important;padding:1px 2px!important;background:#fff!important}
+  .suffix-input .sfx{background:none!important;border:none!important;position:static;padding:0 0 0 2px}
+  .suffix-input{display:inline-flex}
+
+  .grid-wrap{overflow:visible;border:1px solid #999}
+  table.dgrid{min-width:0;font-size:9pt;page-break-inside:auto}
+  table.dgrid thead th{
+    background:#eef2f1!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#111!important;
+    position:static;padding:4px 6px;border-bottom:1px solid #999;
+  }
+  table.dgrid td{padding:3px 6px}
+  table.dgrid td.rowname{position:static}
+  table.dgrid tr{page-break-inside:avoid}
+  .grid-empty{display:none}
+
+  .inherited{background:#f6f7f8!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border:1px solid #bbb}
+
+  /* signature block appended on print */
+  .print-only{display:block!important}
+  .signblock{
+    display:grid!important;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px;
+    page-break-inside:avoid;
+  }
+  .signblock .sig{border-top:1px solid #000;padding-top:5px;font-size:9pt}
+  .print-foot{
+    position:fixed;bottom:0;left:0;right:0;font-size:8pt;color:#555;
+    border-top:1px solid #ccc;padding-top:3px;display:flex;justify-content:space-between;
+  }
+
+  /* section-wise print + on-screen-only controls */
+  .no-print,.secnav,.secprint,.lock-banner{display:none!important}
+  body.print-section section.card:not(.print-target){display:none!important}
+  body.print-section .epi-timeline,body.print-section .vsummary{display:none!important}
+}
+.print-only{display:none}

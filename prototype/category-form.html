@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Category builder — RSL Compliance Prototype</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/print.css">
+<link rel="stylesheet" href="assets/css/rsl.css">
+</head>
+<body class="hide-notes">
+
+<div class="proto-ribbon">Prototype for client review — <b>demonstration data only</b>, no live records</div>
+
+<div class="page"><div class="wrap">
+
+  <div id="recordHeader"></div>
+
+  <div class="pagebar">
+    <h1 id="pageTitle">New category</h1>
+    <span class="hint">Define the document once; every row you enter afterwards follows this layout</span>
+    <span class="spacer"></span>
+    <button class="btn sm tgl" type="button" id="btnNotes" aria-pressed="false">&#9679; Show change notes <span class="cnt" id="notesCount"></span></button>
+    <a class="btn sm" href="categories.html">Cancel</a>
+  </div>
+
+  <div class="vsummary" id="vsummary"></div>
+
+  <section class="card" id="sec-1" data-num="1" data-title="Category details">
+    <div class="ch"><h2><span class="num">1</span> Category details</h2><span class="tag src">From your brief</span></div>
+    <div class="cb">
+      <div class="grid3">
+        <div class="field span2">
+          <label class="req">Category name <span class="hint">— as the team will see it in menus and search results</span></label>
+          <input type="text" id="fName" data-required="1" placeholder="e.g. AAFA Restricted Substance List (RSL)">
+          <span class="err-msg">Required</span>
+        </div>
+        <div class="field">
+          <label>Category key <span class="hint">— generated, becomes the database key</span></label>
+          <input type="text" id="fKey" readonly>
+        </div>
+        <div class="field">
+          <label>Source document</label>
+          <input type="text" id="fSource" placeholder="e.g. AAFA RSL">
+        </div>
+        <div class="field">
+          <label>Version / release</label>
+          <input type="text" id="fVersion" placeholder="e.g. Release 26">
+        </div>
+        <div class="field">
+          <label>Rows are grouped under a section title</label>
+          <select id="fHasSections">
+            <option value="yes">Yes — each row carries a section title (recommended)</option>
+            <option value="no">No — a flat list</option>
+          </select>
+        </div>
+        <div class="field span2">
+          <label>What the section title is called in this document <span class="hint">— shown as the label on the entry form</span></label>
+          <input type="text" id="fSectionLabel" placeholder="e.g. Substance group (table title) / Substance class / Annex part">
+        </div>
+        <div class="field span2">
+          <label>Description <span class="hint">— optional, shown on the category card</span></label>
+          <textarea id="fDesc" rows="2"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="sec-2" data-num="2" data-title="Columns">
+    <div class="ch"><h2><span class="num">2</span> Columns</h2><span class="tag draft">Draft — confirm with your team</span></div>
+    <div class="cb">
+      <details class="change-note" open>
+        <summary>Two columns carry a “role” so that search works the same way across every document</summary>
+        <div class="cn-body">
+          <p><span class="cn-k">What changed</span> — each column can be marked as the <b>CAS number</b> column or the <b>chemical / substance name</b> column. The heading text itself can differ per document (“CAS Number”, “CAS No.”, “CAS No”).</p>
+          <p><span class="cn-k">Why</span> — you asked for CAS number and chemical name to be the primary search across all lists. The role, not the heading, is what the search reads, so a renamed heading never breaks it.</p>
+        </div>
+      </details>
+
+      <div class="sub">Quick start</div>
+      <div class="grid3" style="align-items:end">
+        <div class="field">
+          <label>Copy columns from an existing category</label>
+          <select id="fCopyFrom"><option value="">— choose —</option></select>
+        </div>
+        <div class="field">
+          <label>Or use a template</label>
+          <select id="fPreset"><option value="">— choose —</option></select>
+        </div>
+        <div class="field">
+          <label>Or paste the header row <span class="hint">— copied from the PDF / Excel, tab or comma separated</span></label>
+          <input type="text" id="fPaste" placeholder="CAS Number, Chemical Name, Restriction, Country, …">
+        </div>
+      </div>
+      <div class="hint" style="margin:6px 0 14px">Any of these <b>replaces</b> the column list below. CAS / name roles are guessed from the heading text; check them before saving.</div>
+
+      <div class="sub">Column list <span class="hint">— order here is the order in the data table</span></div>
+      <div class="colb-wrap">
+        <div class="colb-head"><div>#</div><div>Heading (as printed in the document)</div><div>Type</div><div>Role</div><div>Header band <span class="hint">(optional)</span></div><div>Width</div><div>Required</div><div></div></div>
+        <div id="cols"></div>
+      </div>
+      <button class="btn sm" type="button" id="btnAddCol" style="margin-top:6px">+ Add column</button>
+      <div class="hint" style="margin-top:10px"><b>Header band</b> groups neighbouring columns under one heading, like “Wastewater” over Limit Values and Reporting Limit in OEKO-TEX. Type the same band name on each column it covers.</div>
+    </div>
+  </section>
+
+  <section class="card" id="sec-3" data-num="3" data-title="Preview">
+    <div class="ch"><h2><span class="num">3</span> Live preview of the data table header</h2></div>
+    <div class="cb">
+      <p class="preview-note">Updates as you edit above. This is exactly how the data table and search results for this category will read.</p>
+      <div id="preview"></div>
+    </div>
+  </section>
+
+  <div class="actionbar">
+    <span class="save-state" id="saveState"></span>
+    <span class="spacer"></span>
+    <a class="btn" href="categories.html">Cancel</a>
+    <button class="btn primary save" type="button" id="btnSave">Save category</button>
+  </div>
+
+</div></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/demo-data.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/rsl-common.js"></script>
+<script src="assets/js/category-form-app.js"></script>
+</body>
+</html>

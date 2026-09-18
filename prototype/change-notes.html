@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What we changed &amp; why — RSL Compliance Prototype</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/print.css">
+<link rel="stylesheet" href="assets/css/rsl.css">
+</head>
+<body>
+<div class="proto-ribbon">Prototype for client review — <b>demonstration data only</b>, no live records</div>
+
+<div class="page"><div class="wrap">
+  <div class="pagebar">
+    <h1>What we changed from the source documents, and why</h1>
+    <span class="spacer"></span>
+    <a class="btn sm" href="index.html">&larr; Overview</a>
+  </div>
+
+  <section class="card">
+    <div class="ch"><h2>Round 1 — data model decisions</h2><span class="tag draft">For your confirmation</span></div>
+    <div class="cb">
+      <table class="notes">
+        <thead><tr><th style="width:24%">Where</th><th style="width:38%">What changed</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Everywhere</td><td>Each document is a <b>category</b> with its own column list. Rows belong to one category.</td><td>Your three documents have three different tables (8, 7 and 4 columns). One fixed table would force empty columns or lose data.</td></tr>
+          <tr><td>Category builder</td><td>Two columns carry a <b>role</b>: “CAS number” and “Chemical / substance name”. Headings can be worded however the document words them.</td><td>You asked for CAS number and chemical name as the primary search across all lists. The search reads the role, so “CAS Number”, “CAS No.” and “CAS No” all behave the same.</td></tr>
+          <tr><td>Category builder</td><td>Columns can sit under a <b>header band</b> (OEKO-TEX: Wastewater / Sludge over Limit Values and Reporting Limit).</td><td>Reproduces the two-row header of the source so the team recognises the table; also disambiguates the two identical “Limit Values” headings.</td></tr>
+          <tr><td>Add row</td><td>Every row carries a <b>section title</b> (“AP and APEO”, “1. Alkylphenols…”, “Part A”). Existing titles are offered as chips; the last one is remembered for the next row.</td><td>The section title is how the documents group rows and how your team navigates them. In the table it renders as a band row, as in the source.</td></tr>
+          <tr><td>Add row — AAFA</td><td><b>Merged cells</b> in the PDF (the Restriction text spanning two rows) are entered on each row they cover.</td><td>A search hit must return a complete row. Copy is cheap; a merged-cell model breaks search, export and later product checks.</td></tr>
+          <tr><td>Add row — CAS</td><td>Several CAS numbers in one cell are entered <b>one per line</b>. Free text (“Various”, “All CAS of isomers of NP”) is allowed in the CAS column.</td><td>Both appear in your documents. Search matches each number separately, with or without dashes.</td></tr>
+          <tr><td>Add row — CAS</td><td>Each CAS number is checked against its <b>check digit</b> as you type: green = OK, amber = wrong digit. Saving is never blocked.</td><td>Typos in CAS numbers are the most common data-entry error and are invisible later. A warning at entry time costs nothing.</td></tr>
+          <tr><td>Add row — CAS</td><td><b>Duplicate warning</b> when the same CAS number already exists in the category (names the existing row).</td><td>Documents sometimes list one substance under two groups; the operator should know, but must still be able to save.</td></tr>
+          <tr><td>OEKO-TEX — MRSL column</td><td>The printed “X” becomes a <b>Yes / No flag</b>, shown as X in the table.</td><td>A flag can be filtered (“is not empty”) and exported cleanly; a free-text “X” cannot.</td></tr>
+          <tr><td>OEKO-TEX — limit columns</td><td>Limit and reporting-limit columns are <b>text</b>, not number.</td><td>The Sludge limit for Nonylphenol reads “testing required”. A numeric column would reject it. Open question: numeric comparison for the future product check.</td></tr>
+          <tr><td>Search</td><td>Default search matches <b>CAS + name only</b>; a switch extends it to every column and the section title. Column filters (contains / equals / empty…) can be added on top.</td><td>Your primary request; the any-column mode covers “search based on any parameter” without cluttering the default.</td></tr>
+          <tr><td>Search results</td><td>Results are shown <b>per category</b>, each with its own headings; categories without a match collapse to one line.</td><td>Different column layouts cannot share one grid. Collapsing keeps the page short while still showing where nothing was found.</td></tr>
+          <tr><td>Demo data</td><td>POPs rows are <b>illustrative samples</b> (striped), paraphrased, not transcribed.</td><td>You supplied column headings but no page image for POPs. Real rows should replace them.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="ch"><h2>Not in this round</h2><span class="tag">Placeholder</span></div>
+    <div class="cb">
+      <ul style="margin:0;padding-left:18px;line-height:1.8">
+        <li><b>Import from PDF / Excel</b> — bulk loading a whole document. The category builder already accepts a pasted header row as a first step.</li>
+        <li><b>Product check</b> — comparing a lab test report against the limits. Needs the numeric-limit decision above.</li>
+        <li><b>Users, permissions, audit trail</b> — who added or changed a row, and approval before a list goes live.</li>
+        <li><b>Versioning of lists</b> — keeping Release 25 and Release 26 side by side and diffing them.</li>
+      </ul>
+    </div>
+  </section>
+</div></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/demo-data.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/rsl-common.js"></script>
+<script>RSL.shell({ active: 'RSL' });</script>
+</body>
+</html>

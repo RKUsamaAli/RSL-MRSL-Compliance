@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add substance row — RSL Compliance Prototype</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/print.css">
+<link rel="stylesheet" href="assets/css/rsl.css">
+</head>
+<body class="hide-notes">
+
+<div class="proto-ribbon">Prototype for client review — <b>demonstration data only</b>, no live records</div>
+
+<div class="page"><div class="wrap">
+
+  <div id="recordHeader"></div>
+
+  <div class="pagebar">
+    <h1 id="pageTitle">Add substance row</h1>
+    <span class="hint">One printed row of the document = one record. Save &amp; add the next.</span>
+    <span class="spacer"></span>
+    <button class="btn sm tgl" type="button" id="btnNotes" aria-pressed="false">&#9679; Show change notes <span class="cnt" id="notesCount"></span></button>
+    <a class="btn sm" id="lnkTable" href="data.html">Data table</a>
+  </div>
+
+  <div class="vsummary" id="vsummary"></div>
+
+  <section class="card" id="sec-1" data-num="1" data-title="Category">
+    <div class="ch"><h2><span class="num">1</span> Which list is this row from?</h2></div>
+    <div class="cb">
+      <div class="cat-picker">
+        <div class="field">
+          <label class="req">Category</label>
+          <select id="fCat"></select>
+        </div>
+        <div id="catInfo" class="hint"></div>
+        <span class="spacer"></span>
+        <a class="btn sm" href="category-form.html">+ New category</a>
+      </div>
+      <div class="empty-state" id="noCats" style="display:none"><span class="ic">&#128203;</span>
+        <h4>No categories yet</h4><p>Create a category (the document and its columns) before entering rows.</p>
+        <a class="btn primary" href="category-form.html">Create the first category</a></div>
+    </div>
+  </section>
+
+  <section class="card" id="sec-2" data-num="2" data-title="Row details">
+    <div class="ch"><h2><span class="num">2</span> Row details</h2><span class="tag" id="colCount"></span></div>
+    <div class="cb">
+      <details class="change-note" open>
+        <summary>Merged cells in the PDF are entered on every row they cover</summary>
+        <div class="cn-body">
+          <p><span class="cn-k">What changed</span> — in the AAFA table the “Restriction / Maximum Limit” cell spans the Nonylphenol and the NPEO rows. Here each row carries its own copy of the text.</p>
+          <p><span class="cn-k">Why</span> — a search for NPEO must return a complete row on its own. Copying the text is cheap; a merged-cell model makes search and export unreliable.</p>
+        </div>
+      </details>
+      <details class="change-note" open>
+        <summary>Several CAS numbers in one cell are entered one per line</summary>
+        <div class="cn-body">
+          <p><span class="cn-k">What changed</span> — OEKO-TEX lists six CAS numbers for Nonylphenol in one cell (“Various, 11066-49-2, …”). Type each on its own line; free text such as “Various” or “All CAS of isomers of NP” is allowed.</p>
+          <p><span class="cn-k">Why</span> — the search matches every individual number, with or without dashes, and each number is checked against its check digit as you type.</p>
+        </div>
+      </details>
+
+      <div id="dupWarn" class="callout warn dup-warn" style="display:none"></div>
+      <div id="fields" class="grid2"></div>
+    </div>
+  </section>
+
+  <section class="card recent" id="sec-3" data-num="3" data-title="Recently added">
+    <div class="ch"><h2><span class="num">3</span> Recently added in this category</h2><span class="tag" id="recentCount"></span></div>
+    <div class="cb"><div id="recent"></div></div>
+  </section>
+
+  <div class="actionbar">
+    <span class="save-state" id="saveState"></span>
+    <span class="spacer"></span>
+    <a class="btn" id="btnCancel" href="data.html" style="display:none">Cancel edit</a>
+    <button class="btn" type="button" id="btnSaveView">Save &amp; open data table</button>
+    <button class="btn primary save" type="button" id="btnSaveNext">Save &amp; add another</button>
+  </div>
+
+</div></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/demo-data.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/rsl-common.js"></script>
+<script src="assets/js/entry-app.js"></script>
+</body>
+</html>

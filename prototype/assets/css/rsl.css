@@ -1,0 +1,96 @@
+/* ==========================================================================
+   rsl.css — prototype-specific additions on top of theme.css tokens.
+   Only new patterns live here (grouped table headers, CAS chips, search
+   hero, column builder). theme.css itself is untouched.
+   ========================================================================== */
+
+/* ---- No product shell: content only, with a slim in-page nav strip ------ */
+:root{--side-w:0px;--bar-h:0px}
+.side,.appbar{display:none}
+.page{padding-top:18px}
+.topnav{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:0 0 16px;padding:0 0 12px;border-bottom:1px solid var(--line)}
+.topnav .brand{font-size:17px;font-weight:700;color:var(--brand);letter-spacing:-.01em;margin-right:8px}
+.topnav .spacer{flex:1}
+.topnav a:not(.brand){font-size:12.5px;font-weight:500;color:var(--ink-2);border:1px solid var(--line);border-radius:7px;padding:5px 11px;background:var(--card)}
+.topnav a:not(.brand):hover{border-color:var(--muted-2);background:var(--field-bg)}
+.topnav a.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+
+/* ---- Data table: grouped header bands + section bands ------------------- */
+.rsl-wrap{max-height:70vh}
+table.rsl-table thead th{vertical-align:bottom;white-space:normal;line-height:1.3;text-transform:none;letter-spacing:0;font-size:12px}
+table.rsl-table thead th.grp-th{text-align:center;background:var(--brand-lt);color:var(--brand);border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.05em;font-size:11px}
+table.rsl-table thead th.sub-th{top:33px}
+table.rsl-table tbody td{vertical-align:top;font-size:12.5px;line-height:1.45}
+table.rsl-table tbody tr.grp td{position:sticky;left:0}
+table.rsl-table tbody tr.sample td{background:repeating-linear-gradient(135deg,transparent 0 12px,rgba(124,58,237,.035) 12px 24px)}
+table.rsl-table .ml{white-space:pre-line}
+table.rsl-table .muted{color:var(--muted-2)}
+table.rsl-table mark,.rsl-kv mark{background:#fde68a;color:var(--ink);padding:0 2px;border-radius:3px}
+.flag-x{display:inline-block;font-weight:800;color:var(--brand);background:var(--brand-lt);border:1px solid #cfe0da;border-radius:4px;padding:0 7px;font-size:12px}
+
+/* ---- CAS chips ---------------------------------------------------------- */
+.cas{display:inline-block;font-variant-numeric:tabular-nums;font-size:12px;border-radius:5px;padding:1px 7px;margin:0 4px 4px 0;border:1px solid var(--line);background:var(--field-bg);white-space:nowrap}
+.cas.valid{border-color:var(--green-line);background:var(--green-bg);color:#065f46}
+.cas.checksum{border-color:var(--amber-line);background:var(--amber-bg);color:#92400e}
+.cas.text{border-style:dashed;color:var(--ink-2)}
+.cas-check{display:flex;flex-wrap:wrap;gap:0;margin-top:4px;min-height:22px}
+.cas-legend{font-size:11.5px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
+
+/* ---- Search hero -------------------------------------------------------- */
+.search-hero{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px;margin-bottom:14px}
+.search-hero .big{position:relative}
+.search-hero .big:before{content:"\2315";position:absolute;left:14px;top:11px;font-size:20px;color:var(--muted)}
+.search-hero .big input{width:100%;font-size:16px;padding:11px 14px 11px 44px;border-radius:var(--radius)}
+.search-hero .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--muted)}
+.search-hero .row .field{margin:0;min-width:200px}
+.filters{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.frow{display:grid;grid-template-columns:minmax(200px,2fr) 140px minmax(160px,2fr) 34px;gap:8px;align-items:center}
+.frow .icon-btn{justify-self:center}
+.result-sum{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0 12px;font-size:13px;color:var(--ink-2)}
+.result-sum b{font-size:15px}
+.cnt-badge{background:var(--brand);color:#fff;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:700}
+.cnt-badge.zero{background:var(--line);color:var(--muted)}
+
+/* ---- Column builder ----------------------------------------------------- */
+.colb-head,.colb-row{display:grid;grid-template-columns:28px minmax(180px,2.2fr) 150px 190px 130px 100px 70px 88px;gap:8px;align-items:center}
+.colb-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:0 11px 4px}
+.colb-row{padding:8px 11px;border:1px solid var(--line);border-radius:var(--radius-sm);margin-bottom:6px;background:var(--field-bg)}
+.colb-row.role-cas{border-left:3px solid var(--green)}
+.colb-row.role-name{border-left:3px solid var(--blue)}
+.colb-row .n{font-size:11.5px;color:var(--muted);text-align:center}
+.colb-row .mv{display:flex;gap:2px;justify-content:flex-end}
+.colb-row .mv .icon-btn{font-size:12px}
+.colb-row input[type=checkbox]{width:16px;height:16px;justify-self:center}
+.colb-wrap{overflow:auto}
+.colb-wrap > *{min-width:980px}
+.preview-note{font-size:11.5px;color:var(--muted);margin:0 0 6px}
+
+/* ---- Category cards on the landing / categories page -------------------- */
+.cat-chip{display:inline-block;font-size:11px;border:1px solid var(--line);background:var(--card);border-radius:4px;padding:1px 6px;margin:0 4px 4px 0;color:var(--ink-2)}
+.cat-chip.cas{border-color:var(--green-line);background:var(--green-bg)}
+.cat-chip.name{border-color:var(--blue-line);background:var(--blue-bg)}
+.row-actions{display:flex;gap:6px;flex-wrap:wrap}
+.recent .ltable td{font-size:12.5px}
+
+/* ---- Form bits ---------------------------------------------------------- */
+.cat-picker{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.cat-picker .field{min-width:340px}
+.dup-warn ul{margin:6px 0 0;padding-left:18px}
+.kv.rsl-kv{border:none}
+.kv.rsl-kv > div:nth-child(even){white-space:pre-line}
+
+/* ---- Toast -------------------------------------------------------------- */
+.rsl-toast{position:fixed;left:50%;bottom:70px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:9px 16px;border-radius:20px;font-size:13px;opacity:0;pointer-events:none;transition:all .25s;z-index:200;box-shadow:var(--shadow-lg)}
+.rsl-toast.show{opacity:1;transform:translate(-50%,0)}
+.rsl-toast.ok{background:var(--green)}
+.rsl-toast.warn{background:var(--amber)}
+
+/* ---- Change-notes page table -------------------------------------------- */
+table.notes{width:100%;border-collapse:collapse;font-size:13px}
+table.notes th{text-align:left;background:var(--line-2);padding:9px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+table.notes td{padding:10px 12px;border-bottom:1px solid var(--line-2);vertical-align:top;line-height:1.5}
+
+@media (max-width:900px){
+  .frow{grid-template-columns:1fr 1fr}
+  .cat-picker .field{min-width:100%}
+}

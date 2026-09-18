@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSL / MRSL Compliance — Prototype</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/print.css">
+<link rel="stylesheet" href="assets/css/rsl.css">
+</head>
+<body>
+<div class="proto-ribbon">Prototype for client review — <b>demonstration data only</b>, no live records</div>
+
+<div class="page"><div class="wrap">
+  <div class="pagebar">
+    <h1>Restricted Substance Lists — capture, table &amp; search</h1>
+    <span class="spacer"></span>
+    <a class="btn sm" href="change-notes.html">&#128203; What we changed &amp; why</a>
+    <a class="btn sm primary" href="data.html">Search &amp; data table &rarr;</a>
+  </div>
+
+  <div class="jsteps">
+    <a class="jstep current" href="categories.html"><span class="tag">Live</span>
+      <div class="n">1</div><div class="t">Define a category</div><div class="d">One per document (AAFA RSL, OEKO-TEX STeP, POPs) with its own columns</div></a>
+    <a class="jstep current" href="entry.html"><span class="tag">Live</span>
+      <div class="n">2</div><div class="t">Enter rows one by one</div><div class="d">Form follows the category’s columns; section title from the document</div></a>
+    <a class="jstep current" href="data.html"><span class="tag">Live</span>
+      <div class="n">3</div><div class="t">Data table &amp; search</div><div class="d">Search by CAS number or chemical name across every list</div></a>
+    <a class="jstep"><span class="tag draft">Next</span>
+      <div class="n">4</div><div class="t">Import from PDF / Excel</div><div class="d">Bulk load a whole document instead of typing rows</div></a>
+    <a class="jstep"><span class="tag draft">Next</span>
+      <div class="n">5</div><div class="t">Check a product</div><div class="d">Compare a lab test report against the limits</div></a>
+  </div>
+
+  <div class="split">
+    <div>
+      <section class="card">
+        <div class="ch"><h2>What is in this prototype</h2></div>
+        <div class="cb">
+          <p style="margin-top:0">Three screens are working end to end, with data that persists in this browser between pages:</p>
+          <ul style="margin:0 0 12px;padding-left:18px;line-height:1.8">
+            <li><a href="categories.html"><b>Categories</b></a> — the three lists from your brief are pre-built. The <a href="category-form.html">category builder</a> lets you add a new document: name it, list its column headings, mark which column is the CAS number and which is the chemical name, and optionally group columns under a band (OEKO-TEX “Wastewater” / “Sludge”).</li>
+            <li><a href="entry.html?cat=aafa-rsl"><b>Add row</b></a> — pick the category, the form shows exactly its columns. Section title (“AP and APEO”) is remembered for the next row. <i>Save &amp; add another</i> keeps you typing.</li>
+            <li><a href="data.html"><b>Search &amp; data table</b></a> — one search box for CAS number or chemical name across all categories; each category renders as its own table with its own headings and section bands. Optional filters on any column; click a row for the full record; export CSV.</li>
+          </ul>
+          <div class="callout warn"><b>Decisions still needed from you</b> (each drops into <code>config.js</code> once answered):
+            <ol style="margin:6px 0 0;padding-left:18px">
+              <li>Should a row <b>without</b> a section title be allowed? Currently allowed — <code>settings.requireSectionTitle</code>.</li>
+              <li>Search default: CAS + name only, or any column? Currently CAS + name — <code>settings.searchMode</code>.</li>
+              <li>Numeric limit columns (OEKO-TEX 5 µg/l) also contain text (“testing required”). We kept them as text so both fit. Do you need numeric comparison later (for step 5)?</li>
+              <li>Who may edit or delete a category once rows exist? Prototype allows it with a warning.</li>
+            </ol>
+          </div>
+          <a class="btn primary" href="data.html">Open search &amp; data table &rarr;</a>
+          <a class="btn" href="entry.html?cat=aafa-rsl">Add a row to AAFA RSL</a>
+          <a class="btn" href="category-form.html">Build a new category</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="ch"><h2>Pre-loaded demo content</h2><span class="tag src">From your images</span></div>
+        <div class="cb">
+          <div id="catKpis"></div>
+          <div class="kv" id="demoKv" style="border:none"></div>
+          <div class="hint" style="margin-top:8px">AAFA and OEKO-TEX rows are transcribed from the two page images you sent. The POPs rows are illustrative samples (striped in the table) so the third layout is not empty.</div>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <section class="card">
+        <div class="ch"><h2>Try these while reviewing</h2></div>
+        <div class="cb"><ul style="margin:0;padding-left:18px;font-size:12.5px;line-height:1.9">
+          <li>Search <a href="data.html?q=nonyl">nonyl</a> — the same substance appears in all three lists, each with its own column layout.</li>
+          <li>Search <a href="data.html?q=11066492">11066492</a> (no dashes) — still finds CAS 11066-49-2 inside a six-number cell.</li>
+          <li>Search <a href="data.html?q=104-40-5">104-40-5</a> — a single number from the middle of a multi-CAS cell.</li>
+          <li>Search <a href="data.html?q=REACH">REACH</a> with “Match against: any column” to hit the Regulation and Comments text.</li>
+          <li>On <a href="entry.html?cat=oekotex-step">Add row</a>, type <code>1234-56-8</code> in CAS — amber chip: the check digit is wrong. Type <code>11066-49-2</code> — the duplicate warning names the existing row.</li>
+          <li>Save a row with nothing in it — the validation summary lists what is missing and jumps to it.</li>
+          <li>In the <a href="category-form.html">category builder</a>, paste <code>CAS Number, Substance, EC No, Limit</code> into “paste the header row” — columns and roles are generated; the preview header updates as you edit.</li>
+          <li>Edit the OEKO-TEX category and rename “MRSL” — the data table heading changes, the search still works, existing rows keep their values.</li>
+          <li>Export CSV from any search — one file per category, with that category’s headings.</li>
+        </ul></div>
+      </section>
+      <section class="card">
+        <div class="ch"><h2>Demo data</h2></div>
+        <div class="cb">
+          <p style="margin:0 0 10px;font-size:12.5px">Rows you add are stored in this browser only. Reset to the original demo content at any time.</p>
+          <button class="btn sm danger" type="button" id="btnReset">Reset demo data</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</div></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/demo-data.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/rsl-common.js"></script>
+<script>
+  RSL.shell({ active: 'RSL' });
+  (function () {
+    const st = RSL.stats();
+    UI.kpis('#catKpis', [
+      { label: 'Categories', value: String(st.categories), accent: true },
+      { label: 'Rows', value: String(st.entries) },
+      { label: 'Section titles', value: String(st.sections) }
+    ]);
+    UI.kv('#demoKv', RSL.categories().map(c => [c.name, RSL.entries(c.id).length + ' rows · ' + c.columns.length + ' columns · <a href="data.html?cat=' + c.id + '">table</a> · <a href="entry.html?cat=' + c.id + '">add row</a>']));
+    document.getElementById('btnReset').addEventListener('click', () => {
+      if (confirm('Discard every row and category you added and restore the demo content?')) { RSL.reset(); location.reload(); }
+    });
+  })();
+</script>
+</body>
+</html>

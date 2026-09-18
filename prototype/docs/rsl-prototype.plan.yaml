@@ -1,0 +1,75 @@
+meta:
+  feature: RSL / MRSL restricted-substance list capture, table and search
+  round: 1
+  status: built — awaiting client review
+  date: 2026-09-17
+  sources:
+    - AAFA RSL Release 26, page image of the "AP and APEO" table (8 columns, 3 rows)
+    - OEKO-TEX STeP Standard, page image of class 1 (7 columns with Wastewater / Sludge bands, 1 row)
+    - POPs CELEX column headings (Substance, CAS No, EC No, Specific exemption…) — no page image
+
+user_journey:
+  - step: Define a category (document) and its columns
+    state: BUILD NOW
+    screen: categories.html, category-form.html
+  - step: Enter rows one by one against the category's columns
+    state: BUILD NOW
+    screen: entry.html
+  - step: Data table per category + search by CAS / chemical name / any column
+    state: BUILD NOW
+    screen: data.html
+  - step: Bulk import from PDF / Excel
+    state: PLACEHOLDER
+  - step: Check a product test report against the limits
+    state: PLACEHOLDER
+
+challenges:
+  - id: C1
+    severity: BLOCKER
+    what: The brief asks for "a data table which contains all the information" but the three documents have three different column sets (8 / 7 / 4).
+    why: A single fixed table forces empty columns or drops data; the OEKO-TEX two-row header cannot be expressed at all.
+    recommendation: One category per document with its own column schema; search unified through column roles (CAS, name). Built.
+  - id: C2
+    severity: HIGH
+    what: CAS cells are not always CAS numbers ("All CAS of isomers of NP", "Various") and often hold several numbers.
+    why: A strictly numeric CAS field would reject real rows; a single-value field would hide numbers 2..6 from search.
+    recommendation: Multi-line text column with role=cas; search splits and matches each value dash-insensitively; check-digit warning per value. Built.
+  - id: C3
+    severity: HIGH
+    what: AAFA merges the Restriction cell across two rows.
+    why: A merged-cell model makes a search hit return an incomplete row.
+    recommendation: Copy the text onto each row at entry. Built; noted on the entry form.
+  - id: C4
+    severity: MEDIUM
+    what: OEKO-TEX limit columns mix numbers (5, 1, 0.4) and text ("testing required").
+    why: A numeric type would reject the text; a text type prevents numeric comparison later.
+    recommendation: Text for now; open question O3 decides whether a "number-or-text" type is needed for the product check.
+  - id: C5
+    severity: MEDIUM
+    what: The printed "X" in the MRSL column is a marker, not text.
+    why: Text "X" cannot be filtered or exported cleanly.
+    recommendation: Flag column type rendered as X. Built.
+  - id: C6
+    severity: LOW
+    what: No POPs page image was supplied.
+    why: An empty third category would not demonstrate the different layout.
+    recommendation: Four illustrative, striped sample rows; to be replaced by the client's transcription.
+
+open_questions:
+  - id: O1
+    question: May a row be saved without a section title?
+    shipped_as: CFG.settings.requireSectionTitle = false (both behaviours available)
+  - id: O2
+    question: Default search — CAS + name only, or any column?
+    shipped_as: CFG.settings.searchMode = 'primary'; switch on the search screen
+  - id: O3
+    question: Will limit values need numeric comparison (product check)?
+    shipped_as: limit columns typed 'text'; would become a new column type
+  - id: O4
+    question: Who may edit or delete a category once rows exist?
+    shipped_as: allowed with a confirmation; permissions out of scope
+
+non_goals:
+  - No backend, no authentication — rows live in browser local storage.
+  - No PDF / Excel import (pasting a header row into the builder is the only helper).
+  - No versioning of lists, no audit trail, no approval workflow.

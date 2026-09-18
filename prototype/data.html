@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search &amp; data table — RSL Compliance Prototype</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/print.css">
+<link rel="stylesheet" href="assets/css/rsl.css">
+</head>
+<body>
+
+<div class="proto-ribbon">Prototype for client review — <b>demonstration data only</b>, no live records</div>
+
+<div class="page"><div class="wrap">
+
+  <div class="pagebar">
+    <h1>Substance search &amp; data table</h1>
+    <span class="hint">Type a CAS number or a chemical name — every list is searched at once</span>
+    <span class="spacer"></span>
+    <a class="btn sm" href="categories.html">Categories</a>
+    <a class="btn primary" id="btnAdd" href="entry.html">+ Add row</a>
+  </div>
+
+  <div class="search-hero">
+    <div class="big"><input type="text" id="q" placeholder="Search by CAS number (e.g. 11066-49-2 or 11066492) or chemical name (e.g. nonylphenol)…" autocomplete="off" autofocus></div>
+    <div class="row">
+      <div class="field">
+        <label>Search in</label>
+        <select id="scope"><option value="">All categories</option></select>
+      </div>
+      <div class="field">
+        <label>Match against</label>
+        <select id="mode">
+          <option value="primary">CAS number + chemical name only (primary)</option>
+          <option value="all">Any column, including section title</option>
+        </select>
+      </div>
+      <span class="spacer"></span>
+      <button class="btn sm" type="button" id="btnFilter">+ Add column filter</button>
+      <button class="btn sm" type="button" id="btnClear">Clear</button>
+      <button class="btn sm" type="button" id="btnCsv" title="Download the rows currently shown">&#11015; Export CSV</button>
+    </div>
+    <div class="filters" id="filters"></div>
+  </div>
+
+  <div id="kpis"></div>
+  <div class="result-sum" id="sum"></div>
+  <div id="results"></div>
+
+</div></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/demo-data.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/rsl-common.js"></script>
+<script src="assets/js/data-app.js"></script>
+</body>
+</html>
