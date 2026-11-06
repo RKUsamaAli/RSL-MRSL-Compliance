@@ -68,6 +68,8 @@
         (per.length - hitCats ? ' <span class="hint">· ' + (per.length - hitCats) + ' categor' + (per.length - hitCats === 1 ? 'y has' : 'ies have') + ' no match and ' + (per.length - hitCats === 1 ? 'is' : 'are') + ' collapsed</span>' : '')
       : 'Showing every row in scope. Type in the search box to narrow down.';
 
+    drawProducts(q);
+
     const host = $('#results'); host.innerHTML = '';
     if (!per.length) { host.innerHTML = '<div class="empty-state"><span class="ic">&#128203;</span><h4>No categories yet</h4><p>Create one to start entering rows.</p><a class="btn primary" href="category-form.html">New category</a></div>'; return; }
     per.forEach(p => {
@@ -78,6 +80,7 @@
         el('span', { class: 'tag', text: (c.source || '') + (c.version ? ' · ' + c.version : '') }),
         el('span', { class: 'spacer', style: 'flex:1' }),
         el('a', { class: 'btn sm', href: 'entry.html?cat=' + c.id, text: '+ Add row' }),
+        el('a', { class: 'btn sm', href: 'import.html?ds=' + c.id, text: 'Excel' }),
         el('a', { class: 'btn sm', href: 'category-form.html?id=' + c.id, text: 'Columns' })
       ]);
       card.appendChild(ch);
@@ -94,6 +97,27 @@
       }
       host.appendChild(card);
     });
+  }
+
+  /* ---- products + raw materials that match the search ------------------ */
+  function drawProducts(q) {
+    const host = $('#productHits'); host.innerHTML = '';
+    if (!q || !CFG.settings.searchShowsProducts) return;
+    const res = RSL.searchProducts(q);
+    if (!res.products.length && !res.loose.length) return;
+    const card = el('section', { class: 'card search-products' });
+    card.appendChild(el('div', { class: 'ch' }, [
+      el('h2', { html: 'Products &amp; attached raw materials <span class="cnt-badge">' + res.products.length + '</span>' }),
+      el('span', { class: 'spacer', style: 'flex:1' }),
+      el('a', { class: 'btn sm', href: 'products.html?q=' + encodeURIComponent(q), text: 'Open in Products' })
+    ]));
+    const cb = el('div', { class: 'cb' }); card.appendChild(cb);
+    res.products.forEach(h => cb.appendChild(RSLP.productBlock(h, { q })));
+    if (res.loose.length) {
+      cb.appendChild(el('div', { class: 'sub', text: 'Raw materials not on any product' }));
+      cb.appendChild(RSLP.materialsTable(res.loose, { q }));
+    }
+    host.appendChild(card);
   }
 
   /* ---- row drawer ------------------------------------------------------- */
@@ -126,7 +150,11 @@
 
   /* ---- wiring ----------------------------------------------------------- */
   let t; $('#q').addEventListener('input', () => { clearTimeout(t); t = setTimeout(run, 120); });
-  $('#scope').addEventListener('change', () => { $('#btnAdd').href = 'entry.html' + ($('#scope').value ? '?cat=' + $('#scope').value : ''); drawFilters(); run(); });
+  $('#scope').addEventListener('change', () => {
+    $('#btnAdd').href = 'entry.html' + ($('#scope').value ? '?cat=' + $('#scope').value : '');
+    $('#btnExcel').href = 'import.html' + ($('#scope').value ? '?ds=' + $('#scope').value : '');
+    drawFilters(); run();
+  });
   $('#mode').addEventListener('change', run);
   $('#scope').dispatchEvent(new Event('change'));
 })();

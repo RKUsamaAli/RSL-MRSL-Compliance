@@ -25,10 +25,12 @@
       <div class="n">2</div><div class="t">Enter rows one by one</div><div class="d">Form follows the category’s columns; section title from the document</div></a>
     <a class="jstep current" href="data.html"><span class="tag">Live</span>
       <div class="n">3</div><div class="t">Data table &amp; search</div><div class="d">Search by CAS number or chemical name across every list</div></a>
+    <a class="jstep current" href="import.html"><span class="tag">Live</span>
+      <div class="n">4</div><div class="t">Excel import &amp; versions</div><div class="d">Download the template, upload it, go back to any earlier version</div></a>
+    <a class="jstep current" href="products.html"><span class="tag">Live</span>
+      <div class="n">5</div><div class="t">Products &amp; raw materials</div><div class="d">Tag raw materials to a product; search shows what is attached</div></a>
     <a class="jstep"><span class="tag draft">Next</span>
-      <div class="n">4</div><div class="t">Import from PDF / Excel</div><div class="d">Bulk load a whole document instead of typing rows</div></a>
-    <a class="jstep"><span class="tag draft">Next</span>
-      <div class="n">5</div><div class="t">Check a product</div><div class="d">Compare a lab test report against the limits</div></a>
+      <div class="n">6</div><div class="t">Check a product</div><div class="d">Compare measured values against the limits</div></a>
   </div>
 
   <div class="split">
@@ -36,18 +38,23 @@
       <section class="card">
         <div class="ch"><h2>What is in this prototype</h2></div>
         <div class="cb">
-          <p style="margin-top:0">Three screens are working end to end, with data that persists in this browser between pages:</p>
+          <p style="margin-top:0">Five areas are working end to end, with data that persists in this browser between pages:</p>
           <ul style="margin:0 0 12px;padding-left:18px;line-height:1.8">
             <li><a href="categories.html"><b>Categories</b></a> — the three lists from your brief are pre-built. The <a href="category-form.html">category builder</a> lets you add a new document: name it, list its column headings, mark which column is the CAS number and which is the chemical name, and optionally group columns under a band (OEKO-TEX “Wastewater” / “Sludge”).</li>
             <li><a href="entry.html?cat=aafa-rsl"><b>Add row</b></a> — pick the category, the form shows exactly its columns. Section title (“AP and APEO”) is remembered for the next row. <i>Save &amp; add another</i> keeps you typing.</li>
-            <li><a href="data.html"><b>Search &amp; data table</b></a> — one search box for CAS number or chemical name across all categories; each category renders as its own table with its own headings and section bands. Optional filters on any column; click a row for the full record; export CSV.</li>
+            <li><a href="data.html"><b>Search &amp; data table</b></a> — one search box for CAS number or chemical name across all categories; each category renders as its own table with its own headings and section bands. Optional filters on any column; click a row for the full record; export CSV. Products and their attached raw materials appear above the lists when they match.</li>
+            <li><a href="products.html"><b>Products &amp; raw materials</b></a> <span class="rev">Round 2</span> — create a product, tag its raw materials, search it and see everything attached. Search a raw material or a CAS number and see which products use it.</li>
+            <li><a href="import.html"><b>Excel import &amp; versions</b></a> <span class="rev">Round 2</span> — download a template for any list, fill it in, upload it, check the changes, then import. Every import is a version you can view, download or revert to.</li>
           </ul>
           <div class="callout warn"><b>Decisions still needed from you</b> (each drops into <code>config.js</code> once answered):
             <ol style="margin:6px 0 0;padding-left:18px">
               <li>Should a row <b>without</b> a section title be allowed? Currently allowed — <code>settings.requireSectionTitle</code>.</li>
               <li>Search default: CAS + name only, or any column? Currently CAS + name — <code>settings.searchMode</code>.</li>
-              <li>Numeric limit columns (OEKO-TEX 5 µg/l) also contain text (“testing required”). We kept them as text so both fit. Do you need numeric comparison later (for step 5)?</li>
+              <li>Numeric limit columns (OEKO-TEX 5 µg/l) also contain text (“testing required”). We kept them as text so both fit. Do you need numeric comparison later (for step 6)?</li>
               <li>Who may edit or delete a category once rows exist? Prototype allows it with a warning.</li>
+              <li>Should one bad row stop a whole import, or should the good rows go in? Currently it stops — <code>settings.importBadRows</code>.</li>
+              <li>Should a list import replace the list or only add and update by default? Currently replace, with the choice on screen — <code>settings.importDefaultMode</code>.</li>
+              <li>Do CAS numbers belong to the raw material, or do you also need them per product and component, as in the workbook’s Product_Input sheet? Currently on the raw material.</li>
             </ol>
           </div>
           <a class="btn primary" href="data.html">Open search &amp; data table &rarr;</a>
@@ -57,11 +64,11 @@
       </section>
 
       <section class="card">
-        <div class="ch"><h2>Pre-loaded demo content</h2><span class="tag src">From your images</span></div>
+        <div class="ch"><h2>Pre-loaded demo content</h2><span class="tag src">From your documents</span></div>
         <div class="cb">
           <div id="catKpis"></div>
           <div class="kv" id="demoKv" style="border:none"></div>
-          <div class="hint" style="margin-top:8px">AAFA and OEKO-TEX rows are transcribed from the two page images you sent. The POPs rows are illustrative samples (striped in the table) so the third layout is not empty.</div>
+          <div class="hint" style="margin-top:8px">AAFA and OEKO-TEX rows are transcribed from the two page images you sent. The POPs rows are illustrative samples (striped in the table) so the third layout is not empty. The CAS Screening Hub list holds 29 rows copied from your workbook. Products, raw materials and suppliers are invented, apart from the product name PROD-TEST-001 taken from your workbook.</div>
         </div>
       </section>
     </div>
@@ -70,6 +77,10 @@
       <section class="card">
         <div class="ch"><h2>Try these while reviewing</h2></div>
         <div class="cb"><ul style="margin:0;padding-left:18px;font-size:12.5px;line-height:1.9">
+          <li><span class="rev">Round 2</span> Search <a href="products.html?q=PROD-TEST-001">PROD-TEST-001</a> — the product with its four attached raw materials.</li>
+          <li><span class="rev">Round 2</span> Search <a href="products.html?q=formaldehyde">formaldehyde</a> — finds the product through a raw material that only states CAS 50-00-0.</li>
+          <li><span class="rev">Round 2</span> On <a href="import.html?ds=oekotex-step">Excel import</a>, download <b>Current data</b>, change a cell, upload it — see the change, import it, then <b>Revert</b>.</li>
+          <li><span class="rev">Round 2</span> On <a href="import.html?ds=cas-screening-master">Excel import</a>, upload your CAS Screening Hub workbook as it is — the Master_Database sheet is found by itself.</li>
           <li>Search <a href="data.html?q=nonyl">nonyl</a> — the same substance appears in all three lists, each with its own column layout.</li>
           <li>Search <a href="data.html?q=11066492">11066492</a> (no dashes) — still finds CAS 11066-49-2 inside a six-number cell.</li>
           <li>Search <a href="data.html?q=104-40-5">104-40-5</a> — a single number from the middle of a multi-CAS cell.</li>
@@ -84,7 +95,7 @@
       <section class="card">
         <div class="ch"><h2>Demo data</h2></div>
         <div class="cb">
-          <p style="margin:0 0 10px;font-size:12.5px">Rows you add are stored in this browser only. Reset to the original demo content at any time.</p>
+          <p style="margin:0 0 10px;font-size:12.5px">Rows, products and versions are stored in this browser only. Reset to the original demo content at any time. This also clears the version history.</p>
           <button class="btn sm danger" type="button" id="btnReset">Reset demo data</button>
         </div>
       </section>
@@ -107,7 +118,7 @@
     ]);
     UI.kv('#demoKv', RSL.categories().map(c => [c.name, RSL.entries(c.id).length + ' rows · ' + c.columns.length + ' columns · <a href="data.html?cat=' + c.id + '">table</a> · <a href="entry.html?cat=' + c.id + '">add row</a>']));
     document.getElementById('btnReset').addEventListener('click', () => {
-      if (confirm('Discard every row and category you added and restore the demo content?')) { RSL.reset(); location.reload(); }
+      if (confirm('Discard everything you added, including all versions, and restore the demo content?')) { RSL.reset(); location.reload(); }
     });
   })();
 </script>

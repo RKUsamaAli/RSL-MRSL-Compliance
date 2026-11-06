@@ -36,6 +36,7 @@
             '<div class="row-actions">' +
             '<a class="btn sm primary" href="entry.html?cat=' + r.id + '" onclick="event.stopPropagation()">+ Add row</a>' +
             '<a class="btn sm" href="data.html?cat=' + r.id + '" onclick="event.stopPropagation()">Data table</a>' +
+            '<a class="btn sm" href="import.html?ds=' + r.id + '" onclick="event.stopPropagation()">Excel &amp; versions</a>' +
             '<a class="btn sm" href="category-form.html?id=' + r.id + '" onclick="event.stopPropagation()">Edit columns</a>' +
             '<a class="btn sm" href="category-form.html?copy=' + r.id + '" onclick="event.stopPropagation()" title="New category starting from these columns">Copy</a>' +
             '<button class="btn sm danger" type="button" data-del="' + r.id + '">Delete</button>' +

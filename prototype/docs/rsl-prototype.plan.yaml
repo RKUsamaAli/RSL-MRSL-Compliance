@@ -1,12 +1,13 @@
 meta:
   feature: RSL / MRSL restricted-substance list capture, table and search
-  round: 1
-  status: built — awaiting client review
-  date: 2026-09-17
+  round: 2
+  status: round 2 built — awaiting client review
+  date: 2026-11-06
   sources:
     - AAFA RSL Release 26, page image of the "AP and APEO" table (8 columns, 3 rows)
     - OEKO-TEX STeP Standard, page image of class 1 (7 columns with Wastewater / Sludge bands, 1 row)
     - POPs CELEX column headings (Substance, CAS No, EC No, Specific exemption…) — no page image
+    - CAS Screening Hub - Delta X v1.0.xlsx (sample workbook, 22,822 master rows, 65 standards)
 
 user_journey:
   - step: Define a category (document) and its columns
@@ -18,9 +19,15 @@ user_journey:
   - step: Data table per category + search by CAS / chemical name / any column
     state: BUILD NOW
     screen: data.html
-  - step: Bulk import from PDF / Excel
+  - step: Download Excel template, fill, import, with versions and revert
+    state: BUILD NOW
+    screen: import.html
+  - step: Create products, tag raw materials, search and list what is attached
+    state: BUILD NOW
+    screen: products.html, product-form.html
+  - step: Bulk import from PDF
     state: PLACEHOLDER
-  - step: Check a product test report against the limits
+  - step: Check a product against the limits (verdicts, dashboard as in the workbook)
     state: PLACEHOLDER
 
 challenges:
@@ -55,6 +62,32 @@ challenges:
     why: An empty third category would not demonstrate the different layout.
     recommendation: Four illustrative, striped sample rows; to be replaced by the client's transcription.
 
+  - id: C7
+    severity: HIGH
+    what: The workbook links CAS numbers straight to a product; the brief adds raw materials between them.
+    why: Without that level a shared chemical must be retyped per product, and a correction misses products.
+    recommendation: Product -> raw material -> CAS. "Component / material" in Product_Input maps to raw material. Built; open question O7.
+  - id: C8
+    severity: HIGH
+    what: Importing a partial file over a list would delete everything not in the file.
+    why: "Replace" suits a new edition and is dangerous for a correction file; the file alone cannot say which is meant.
+    recommendation: Choose per import, preview removals, keep the previous version. Products default to add & update. Built.
+  - id: C9
+    severity: HIGH
+    what: The workbook has 22,822 rows; a browser prototype holds about 5 MB.
+    why: Each version stores a whole copy of the list.
+    recommendation: 29 sample rows loaded; uploads capped at settings.importRowLimit with an on-screen warning. Removed at implementation.
+  - id: C10
+    severity: MEDIUM
+    what: Excel silently converts some CAS numbers to dates.
+    why: A converted CAS can never match a list.
+    recommendation: Template columns are text-formatted; values that look like dates get a warning. Built.
+  - id: C11
+    severity: MEDIUM
+    what: Whole-list copies per version are simple but grow with every import.
+    why: Exact restores are worth more than storage for a compliance record.
+    recommendation: Keep whole copies; review retention at implementation.
+
 open_questions:
   - id: O1
     question: May a row be saved without a section title?
@@ -68,8 +101,18 @@ open_questions:
   - id: O4
     question: Who may edit or delete a category once rows exist?
     shipped_as: allowed with a confirmation; permissions out of scope
+  - id: O5
+    question: Does one bad row stop the import, or do the good rows go in?
+    shipped_as: CFG.settings.importBadRows = 'block' ('skip' also built)
+  - id: O6
+    question: Default import mode for a list — replace, or add & update?
+    shipped_as: CFG.settings.importDefaultMode = 'replace'; products use importDefaultModeProducts = 'merge'; choice on screen
+  - id: O7
+    question: Are CAS numbers held per raw material only, or per product + component too?
+    shipped_as: on the raw material
 
 non_goals:
   - No backend, no authentication — rows live in browser local storage.
-  - No PDF / Excel import (pasting a header row into the builder is the only helper).
-  - No versioning of lists, no audit trail, no approval workflow.
+  - No PDF import.
+  - No product check, verdicts or dashboard (Screening_Results, Product_Summary, Dashboard sheets).
+  - No users; "by" on a version is a fixed name. No approval workflow.

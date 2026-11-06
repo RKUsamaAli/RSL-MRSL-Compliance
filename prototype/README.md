@@ -1,4 +1,4 @@
-# RSL / MRSL Compliance — clickable prototype (round 1)
+# RSL / MRSL Compliance — clickable prototype (round 2)
 
 Open `index.html` in any browser. No server, no build, no dependencies. Rows you add are kept in
 the browser's local storage so they survive moving between pages; **Reset demo data** on the
@@ -13,6 +13,9 @@ landing page restores the original content.
 | `category-form.html` | Category builder: name, document, column list with type / role / band / width, live header preview |
 | `entry.html` | Add or edit one row against the selected category's columns |
 | `data.html` | Search (CAS number / chemical name, any column, column filters) + per-category data tables + CSV export |
+| `products.html` | Round 2: product and raw-material registers with one search; each product lists its attached raw materials |
+| `product-form.html` | Round 2: create or edit a product and tag raw materials |
+| `import.html` | Round 2: template download, upload preview, import, version history, compare, revert |
 | `change-notes.html` | Every deviation from the source documents, with the reason |
 | `docs/rsl-prototype.plan.yaml` | Staged plan, challenges to the brief, open questions |
 
@@ -54,6 +57,33 @@ landing page restores the original content.
 | Edit OEKO-TEX, rename "MRSL" to "MRSL listed", save, open the data table | Heading changed, values intact, search unchanged |
 | Copy a category | New category pre-filled with the same columns |
 
+### D. Products and raw materials (products.html, product-form.html)
+
+| Do this | It shows |
+|---|---|
+| Open `products.html`, type `PROD-TEST-001` | The product with its four attached raw materials, supplier and CAS numbers |
+| Type `formaldehyde` | The same product, found through RM-003 which only states CAS 50-00-0 |
+| Type `WA-200`, open the **Raw materials** tab | The raw material and the product chips that use it |
+| On `data.html`, search `PROD-TEST-001` | The same attached list appears above the substance lists |
+| Click **+ New product**, tag two raw materials, add a new one, save | The product opens with all three attached; the new one got the next RM number |
+| Save another product with the same Product ID | Validation refuses the duplicate |
+
+### E. Excel import and versions (import.html)
+
+| Do this | It shows |
+|---|---|
+| Choose OEKO-TEX, click **Blank template** | A real .xlsx: Data sheet, yellow example row, drop-down on MRSL, How to fill sheet |
+| Fill two rows, upload | Preview: 2 new, 1 removed; the example row is ignored |
+| Type `maybe` in the MRSL column, upload | The error names the Excel row; Import is disabled |
+| Upload the good file, name it `2027`, import | Version 2 appears; the category shows edition 2027; the new rows are searchable |
+| Click **Revert** on version 1 | The drawer shows what changes; confirming creates version 3 with the original row |
+| Revert to version 2 | The revert itself is undone; history keeps every step |
+| Edit a row on `entry.html`, return here | A note offers to save the edits; they become a Manual edits version before any import |
+| Download **Current data**, change a cell, upload | Only that row shows as changed, old value struck through |
+| Upload a file from another list | Refused, with a button to switch to the right list |
+| Choose CAS Screening Hub, upload the workbook | Master_Database is found by itself; 22,822 rows read, first 1,000 used (browser limit) |
+| Choose Products & raw materials, upload the workbook | Product_Input is found; calculated columns are ignored; "Dyed fabric" becomes a raw material |
+
 ## What we are still waiting on
 
 | Decision | Where it lands |
@@ -63,10 +93,15 @@ landing page restores the original content.
 | Numeric comparison of limit values for the future product check | column `type` of the limit columns (`text` today) |
 | Who may change a category's columns once rows exist | permissions — not in this round |
 | Real POPs rows to replace the striped samples | `demo-data.js` → data entry |
+| One bad row: stop the import, or import the good rows? | `CFG.settings.importBadRows` |
+| Default import: replace or add & update? | `CFG.settings.importDefaultMode`, `importDefaultModeProducts` |
+| Are CAS numbers held per raw material only, or per product + component too? | product data model |
+| Real product and raw-material data | `demo-data.js`, or upload through `import.html` |
 
 ## Hand-off after approval
 
 `config.js` → category / column definition tables and enumerations (column types, roles, widths,
-filter operators). `RSL` store API in `rsl-common.js` → the REST surface (categories, entries,
-sections). Search rules (`matchEntry`, `applyFilters`, CAS normalisation and checksum) → server-side
+filter operators, material types, version modes, product import layout). `rsl-excel.js` → server-side
+template and import rules. `xlsx-lite.js` is a stand-in for a server spreadsheet library. `RSL` store API in `rsl-common.js` → the REST surface (categories, entries,
+sections, products, materials, versions). Search rules (`matchEntry`, `applyFilters`, CAS normalisation and checksum) → server-side
 search. `change-notes.html` + the plan yaml → requirement history.

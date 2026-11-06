@@ -79,6 +79,55 @@ table.rsl-table mark,.rsl-kv mark{background:#fde68a;color:var(--ink);padding:0 
 .kv.rsl-kv{border:none}
 .kv.rsl-kv > div:nth-child(even){white-space:pre-line}
 
+/* ---- Round 2: products + raw materials ---------------------------------- */
+.prod-block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px 14px;margin-bottom:12px}
+.pb-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.pb-head .rowlink{font-weight:600;font-size:14px}
+.att-table td{vertical-align:top;font-size:12.5px}
+.att-table tr.hit td{background:var(--amber-bg)}
+.att-table mark,.mat-card mark,.ltable mark,.pb-head mark{background:#fde68a;color:var(--ink);padding:0 2px;border-radius:3px}
+.cas-link{display:inline-flex;align-items:center;margin:0 6px 4px 0;text-decoration:none}
+.cas-link .cas{margin:0}
+.hit-count{background:var(--amber);color:#fff;border-radius:9px;font-size:10.5px;font-weight:700;padding:0 6px;margin-left:3px}
+.mat-card{border:1px solid var(--line);border-radius:var(--radius-sm);padding:8px 11px;margin-bottom:6px;background:var(--field-bg)}
+.mat-card.row{display:flex;gap:10px;align-items:flex-start}
+.mat-card .grow{flex:1;min-width:0}
+.mat-card .h{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:4px}
+.search-products{margin-bottom:14px}
+.search-products .prod-block{box-shadow:none;margin-bottom:8px}
+
+/* ---- Round 2: Excel import + versions ----------------------------------- */
+.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dl-opt{border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;background:var(--field-bg)}
+.dl-opt h4{font-size:13.5px;margin:0 0 4px}
+.dl-opt p{font-size:12.5px;color:var(--ink-2);margin:0 0 10px}
+.dropzone{display:flex;flex-direction:column;align-items:center;gap:4px;border:2px dashed var(--line);border-radius:var(--radius);padding:24px;text-align:center;cursor:pointer;background:var(--field-bg);font-size:13px}
+.dropzone:hover,.dropzone.over{border-color:var(--brand-mid);background:var(--brand-lt)}
+.dropzone input{position:absolute;opacity:0;width:1px;height:1px}
+.preview-head{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin:14px 0 10px}
+.preview-head .spacer{flex:1}
+.mode-pick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mode-opt{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:var(--radius-sm);padding:9px 12px;cursor:pointer;font-size:13px}
+.mode-opt:has(input:checked){border-color:var(--brand);background:var(--brand-lt)}
+.mode-opt input{margin-top:3px}
+.mode-opt .hint{display:block}
+.issue-list{max-height:240px;overflow:auto;border:1px solid var(--line);border-radius:var(--radius-sm)}
+.issue{display:grid;grid-template-columns:76px 64px 1fr;gap:8px;align-items:baseline;padding:6px 10px;border-bottom:1px solid var(--line-2);font-size:12.5px}
+.issue:last-child{border-bottom:none}
+.issue .at{color:var(--muted)}
+.chg-list{max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:var(--radius-sm)}
+.chg{padding:6px 10px;border-bottom:1px solid var(--line-2);font-size:12.5px}
+.chg:last-child{border-bottom:none}
+.chg .h{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.chg .mk{font-size:10.5px;font-weight:700;border-radius:4px;padding:0 6px;border:1px solid}
+.chg.add .mk{color:var(--green);background:var(--green-bg);border-color:var(--green-line)}
+.chg.upd .mk{color:var(--amber);background:var(--amber-bg);border-color:var(--amber-line)}
+.chg.del .mk{color:var(--red);background:var(--red-bg);border-color:var(--red-line)}
+.chg .fields{margin:3px 0 0 4px;white-space:pre-line;line-height:1.5}
+.chg s{color:var(--muted)}
+.dlt{font-weight:700;font-size:12px}
+.dlt.add{color:var(--green)}.dlt.upd{color:var(--amber)}.dlt.del{color:var(--red)}
+
 /* ---- Toast -------------------------------------------------------------- */
 .rsl-toast{position:fixed;left:50%;bottom:70px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:9px 16px;border-radius:20px;font-size:13px;opacity:0;pointer-events:none;transition:all .25s;z-index:200;box-shadow:var(--shadow-lg)}
 .rsl-toast.show{opacity:1;transform:translate(-50%,0)}
@@ -93,4 +142,5 @@ table.notes td{padding:10px 12px;border-bottom:1px solid var(--line-2);vertical-
 @media (max-width:900px){
   .frow{grid-template-columns:1fr 1fr}
   .cat-picker .field{min-width:100%}
+  .dl-grid,.mode-pick{grid-template-columns:1fr}
 }

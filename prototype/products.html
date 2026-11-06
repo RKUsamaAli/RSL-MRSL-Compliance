@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Products &amp; raw materials — RSL Compliance Prototype</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/print.css">
+<link rel="stylesheet" href="assets/css/rsl.css">
+</head>
+<body>
+
+<div class="proto-ribbon">Prototype for client review — <b>demonstration data only</b>, no live records</div>
+
+<div class="page"><div class="wrap">
+
+  <div class="pagebar">
+    <h1>Products &amp; raw materials</h1>
+    <span class="hint">Search a product to see its raw materials, or a raw material to see its products</span>
+    <span class="spacer"></span>
+    <a class="btn sm" href="import.html?ds=products">Excel import</a>
+    <button class="btn sm" type="button" id="btnMat">+ New raw material</button>
+    <a class="btn primary" href="product-form.html">+ New product</a>
+  </div>
+
+  <div class="search-hero">
+    <div class="big"><input type="text" id="q" placeholder="Search by product, raw material, supplier, CAS number or chemical name…" autocomplete="off" autofocus></div>
+  </div>
+
+  <div id="kpis"></div>
+
+  <div class="tabs" id="tabs">
+    <button type="button" data-pane="paneProducts">Products <span class="cnt" id="cntP"></span></button>
+    <button type="button" data-pane="paneMaterials">Raw materials <span class="cnt" id="cntM"></span></button>
+  </div>
+  <div class="tabpane" id="paneProducts"><div id="productList"></div></div>
+  <div class="tabpane" id="paneMaterials"><div id="materialList"></div></div>
+
+</div></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/demo-data.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/rsl-common.js"></script>
+<script src="assets/js/rsl-products.js"></script>
+<script src="assets/js/products-app.js"></script>
+</body>
+</html>

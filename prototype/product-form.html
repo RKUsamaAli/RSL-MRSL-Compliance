@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product — RSL Compliance Prototype</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/print.css">
+<link rel="stylesheet" href="assets/css/rsl.css">
+</head>
+<body>
+
+<div class="proto-ribbon">Prototype for client review — <b>demonstration data only</b>, no live records</div>
+
+<div class="page"><div class="wrap">
+
+  <div class="pagebar">
+    <h1 id="pageTitle">New product</h1>
+    <span class="spacer"></span>
+    <a class="btn sm" href="products.html">Back to products</a>
+  </div>
+
+  <div class="vsummary" id="vsummary"></div>
+
+  <section class="card">
+    <div class="ch"><h2><span class="num">1</span> Product</h2></div>
+    <div class="cb">
+      <div class="grid2">
+        <div class="field"><label class="req">Product ID</label><input type="text" id="fCode" placeholder="e.g. PROD-004"><span class="err-msg" id="codeErr">Required</span></div>
+        <div class="field"><label class="req">Product name</label><input type="text" id="fName"><span class="err-msg">Required</span></div>
+        <div class="field"><label>Customer / buyer</label><input type="text" id="fCustomer"></div>
+        <div class="field"><label>Notes</label><input type="text" id="fNotes"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="ch"><h2><span class="num">2</span> Raw materials</h2><span class="tag" id="matCount"></span>
+      <span class="spacer" style="flex:1"></span>
+      <button class="btn sm" type="button" id="btnNewMat">+ New raw material</button>
+      <button class="btn sm primary" type="button" id="btnTag">Tag raw materials</button>
+    </div>
+    <div class="cb"><div id="tagged"></div></div>
+  </section>
+
+  <div class="actionbar">
+    <span class="spacer"></span>
+    <a class="btn" href="products.html">Cancel</a>
+    <button class="btn primary save" type="button" id="btnSave">Save product</button>
+  </div>
+
+</div></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/demo-data.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/rsl-common.js"></script>
+<script src="assets/js/rsl-products.js"></script>
+<script src="assets/js/product-form-app.js"></script>
+</body>
+</html>

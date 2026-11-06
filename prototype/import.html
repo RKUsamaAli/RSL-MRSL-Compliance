@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Excel import &amp; versions — RSL Compliance Prototype</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/print.css">
+<link rel="stylesheet" href="assets/css/rsl.css">
+</head>
+<body>
+
+<div class="proto-ribbon">Prototype for client review — <b>demonstration data only</b>, no live records</div>
+
+<div class="page"><div class="wrap">
+
+  <div class="pagebar">
+    <h1>Excel import &amp; versions</h1>
+    <span class="hint">Download the template, fill it in, upload it. Every import is a version you can go back to.</span>
+  </div>
+
+  <section class="card">
+    <div class="ch"><h2>Which data?</h2></div>
+    <div class="cb">
+      <div class="cat-picker">
+        <div class="field">
+          <label>List or data set</label>
+          <select id="fDs"></select>
+        </div>
+        <div class="hint" id="dsInfo"></div>
+      </div>
+      <div id="kpis" style="margin-top:12px"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="ch"><h2><span class="num">1</span> Download</h2></div>
+    <div class="cb">
+      <div class="dl-grid">
+        <div class="dl-opt">
+          <h4>Blank template</h4>
+          <p>The headings of this list, an example row and a “How to fill” sheet. Use it for a new edition.</p>
+          <button class="btn primary" type="button" id="btnBlank">&#11015; Blank template</button>
+        </div>
+        <div class="dl-opt">
+          <h4>Current data</h4>
+          <p>Everything in the list today, in the same layout. Use it to correct or extend what is there.</p>
+          <button class="btn" type="button" id="btnData">&#11015; Current data</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="ch"><h2><span class="num">2</span> Upload the filled file</h2></div>
+    <div class="cb">
+      <label class="dropzone" id="drop">
+        <input type="file" id="fFile" accept=".xlsx,.csv">
+        <b>Choose an Excel file</b> or drop it here
+        <span class="hint">.xlsx or .csv. Nothing is saved until you confirm.</span>
+      </label>
+      <div class="callout warn" id="fatal" style="display:none"></div>
+      <div id="preview" style="display:none">
+        <div class="preview-head">
+          <div><b id="pvFile"></b><div class="hint" id="pvWhere"></div></div>
+          <span class="spacer"></span>
+          <div class="field" id="sheetWrap" style="margin:0;min-width:200px"><label>Sheet</label><select id="fSheet"></select></div>
+        </div>
+        <div class="mode-pick">
+          <label class="mode-opt"><input type="radio" name="mode" value="replace"><span><b>Replace the list</b><span class="hint">The file is the complete new edition. Rows not in the file are removed.</span></span></label>
+          <label class="mode-opt"><input type="radio" name="mode" value="merge"><span><b>Add &amp; update only</b><span class="hint">The file holds some rows. Everything else stays as it is.</span></span></label>
+        </div>
+        <div id="pvKpis" style="margin-top:12px"></div>
+        <div class="callout warn" id="pvRemove" style="display:none"></div>
+        <div id="pvIssues"></div>
+        <div id="pvChanges"></div>
+        <div class="grid2" style="margin-top:12px">
+          <div class="field"><label>Edition or version name</label><input type="text" id="fLabel" placeholder="e.g. Release 27"></div>
+          <div class="field"><label>Note</label><input type="text" id="fNote" placeholder="Why this import was made"></div>
+        </div>
+        <div class="row-actions" style="margin-top:12px">
+          <button class="btn primary" type="button" id="btnImport">Import</button>
+          <button class="btn" type="button" id="btnCancel">Cancel</button>
+          <span class="hint" id="pvBlocked"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="ch"><h2><span class="num">3</span> Version history</h2><span class="tag" id="verCount"></span></div>
+    <div class="cb">
+      <div class="callout" id="manualNote" style="display:none"></div>
+      <div id="versions"></div>
+    </div>
+  </section>
+
+</div></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/demo-data.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/rsl-common.js"></script>
+<script src="assets/js/xlsx-lite.js"></script>
+<script src="assets/js/rsl-excel.js"></script>
+<script src="assets/js/import-app.js"></script>
+</body>
+</html>

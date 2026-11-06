@@ -18,6 +18,32 @@
   </div>
 
   <section class="card">
+    <div class="ch"><h2>Round 2 — products, Excel import and versions</h2><span class="tag draft">For your confirmation</span></div>
+    <div class="cb">
+      <table class="notes">
+        <thead><tr><th style="width:24%">Where</th><th style="width:38%">What changed</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Products</td><td>New <b>product</b> and <b>raw material</b> registers. A product is tagged with raw materials; one raw material can be on many products.</td><td>You asked to tag raw materials to a product and see them when searching. Keeping raw materials in their own register means a supplier or CAS correction reaches every product.</td></tr>
+          <tr><td>Products</td><td><b>CAS numbers sit on the raw material</b>, not on the product.</td><td>Your workbook links CAS numbers to a product directly (Product_Input). We added the raw-material level you asked for, so its “Component / material” column becomes the raw material. Please confirm.</td></tr>
+          <tr><td>Search</td><td>The substance search also lists matching products with <b>everything attached</b>. A chemical name also finds raw materials through their CAS number.</td><td>A supplier sheet may state only “50-00-0”. A search for “formaldehyde” should still find it.</td></tr>
+          <tr><td>Products</td><td>The number beside a CAS chip counts <b>list rows naming it</b>. There is no pass or fail.</td><td>Being listed is not a verdict. Verdicts need measured values and the numeric-limit decision (step 6).</td></tr>
+          <tr><td>CAS Screening Hub</td><td>The workbook’s <b>Master_Database</b> sheet is a fourth category, with its own headings. <b>29 sample rows</b> are loaded out of 22,822.</td><td>A browser cannot hold the whole workbook with its version copies. The real system has no such limit. Uploads here take the first 1,000 rows and say so.</td></tr>
+          <tr><td>CAS Screening Hub</td><td>The workbook’s calculated sheets (Dashboard, Screening_Results, Product_Summary, CAS_Index) are <b>not reproduced</b>.</td><td>They are outputs of the product check, which is the next step.</td></tr>
+          <tr><td>Template</td><td>Each list has <b>its own template</b>, built from its columns. Change a list’s columns and its template follows. The CAS column is formatted as text.</td><td>Your lists have different layouts. Excel otherwise turns some CAS numbers into dates.</td></tr>
+          <tr><td>Template</td><td>A grey <b>Row ID</b> column links a row to its record. Without it, rows are matched on CAS number + name + section (or on Record ID for the workbook).</td><td>This is how a re-import knows a row was changed, not deleted and added again.</td></tr>
+          <tr><td>Import</td><td><b>Nothing is saved until you confirm.</b> The preview shows new, changed, removed and unchanged records, plus every error by Excel row number.</td><td>A wrong file could otherwise remove a whole list.</td></tr>
+          <tr><td>Import</td><td>Two ways to import: <b>Replace the list</b> (a new edition) or <b>Add &amp; update only</b> (part of a list). Products start on Add &amp; update.</td><td>The same file means different things in the two situations, so the choice is made each time, with the effect shown first.</td></tr>
+          <tr><td>Import</td><td><b>One error stops the import.</b> Warnings, such as a failed check digit, do not.</td><td>A half-loaded list is hard to notice later. Open question: this can change so that good rows go in and bad rows are left out.</td></tr>
+          <tr><td>Versions</td><td>Each import saves a <b>complete version</b> of the list. Any version can be viewed, compared, downloaded to Excel or reverted to.</td><td>You asked for versions and revert. Whole copies keep restoring simple and exact.</td></tr>
+          <tr><td>Versions</td><td><b>Revert adds a new version</b>; it deletes nothing. A revert can itself be undone.</td><td>Compliance history should not lose records, and a wrong revert must be recoverable.</td></tr>
+          <tr><td>Versions</td><td>Versions cover <b>each list separately</b>, and products as one set. Row-by-row edits are saved as a “Manual edits” version before an import or revert.</td><td>Reverting one list must not touch another, and manual work must never be lost silently.</td></tr>
+          <tr><td>Versions</td><td>Who imported is shown as a fixed name (“Compliance Officer”).</td><td>The prototype has no users or logins yet.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
     <div class="ch"><h2>Round 1 — data model decisions</h2><span class="tag draft">For your confirmation</span></div>
     <div class="cb">
       <table class="notes">
@@ -42,13 +68,12 @@
   </section>
 
   <section class="card">
-    <div class="ch"><h2>Not in this round</h2><span class="tag">Placeholder</span></div>
+    <div class="ch"><h2>Not built yet</h2><span class="tag">Placeholder</span></div>
     <div class="cb">
       <ul style="margin:0;padding-left:18px;line-height:1.8">
-        <li><b>Import from PDF / Excel</b> — bulk loading a whole document. The category builder already accepts a pasted header row as a first step.</li>
-        <li><b>Product check</b> — comparing a lab test report against the limits. Needs the numeric-limit decision above.</li>
+        <li><b>Import from PDF</b> — reading a source PDF directly. Excel import is built; PDFs still need the data put into the template first.</li>
+        <li><b>Product check</b> — comparing measured values against the limits, with PASS / FAIL verdicts and the dashboard, as in your workbook. Needs the numeric-limit decision above.</li>
         <li><b>Users, permissions, audit trail</b> — who added or changed a row, and approval before a list goes live.</li>
-        <li><b>Versioning of lists</b> — keeping Release 25 and Release 26 side by side and diffing them.</li>
       </ul>
     </div>
   </section>
