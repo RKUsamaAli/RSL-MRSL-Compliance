@@ -79,6 +79,7 @@
       el('button', { class: 'btn', text: 'Close', onclick: UI.closeDrawer }),
       el('button', { class: 'btn danger', text: 'Delete', onclick: () => { if (confirm('Delete product ' + p.code + '? Its raw materials stay.')) { RSL.deleteProduct(p.id); UI.closeDrawer(); RSL.toast('Product deleted'); draw(); } } }),
       el('span', { class: 'spacer', style: 'flex:1' }),
+      el('a', { class: 'btn', href: 'report.html?q=' + encodeURIComponent(p.code), text: 'Report' }),
       el('a', { class: 'btn primary', href: 'product-form.html?id=' + encodeURIComponent(p.id), text: 'Edit product' })
     ] });
   }

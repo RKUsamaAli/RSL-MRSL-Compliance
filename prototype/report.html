@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product report — RSL Compliance Prototype</title>
+<link rel="stylesheet" href="assets/css/theme.css">
+<link rel="stylesheet" href="assets/css/print.css">
+<link rel="stylesheet" href="assets/css/rsl.css">
+</head>
+<body>
+
+<div class="proto-ribbon">Prototype for client review — <b>demonstration data only</b>, no live records</div>
+
+<div class="page"><div class="wrap">
+
+  <div class="pagebar">
+    <h1>Product report</h1>
+    <span class="hint" id="repCount"></span>
+    <span class="spacer"></span>
+    <a class="btn sm" href="products.html">&larr; Products</a>
+    <button class="btn sm" type="button" id="btnExcel">&#11015; Excel</button>
+    <button class="btn primary" type="button" id="btnPrint">Print</button>
+  </div>
+
+  <div class="search-hero no-print">
+    <div class="big"><input type="text" id="q" placeholder="Limit the report by product, raw material, supplier, CAS number or chemical name…" autocomplete="off" autofocus></div>
+  </div>
+
+  <div id="repCheck" class="callout warn" hidden></div>
+
+  <div class="print-only rep-title">
+    <h2>Product report</h2>
+    <p id="repPrinted"></p>
+  </div>
+  <div id="report"></div>
+
+</div></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/demo-data.js"></script>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/xlsx-lite.js"></script>
+<script src="assets/js/rsl-common.js"></script>
+<script src="assets/js/report-app.js"></script>
+</body>
+</html>

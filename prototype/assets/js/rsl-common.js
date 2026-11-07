@@ -525,7 +525,7 @@ window.RSL = (function () {
       el('span', { class: 'spacer' })
     ]);
     NAV.forEach(n => nav.appendChild(el('a', { href: n[0], text: n[1],
-      class: (here === n[0] || (n[0] === 'categories.html' && here === 'category-form.html') || (n[0] === 'products.html' && here === 'product-form.html')) ? 'on' : '' })));
+      class: (here === n[0] || (n[0] === 'categories.html' && here === 'category-form.html') || (n[0] === 'products.html' && (here === 'product-form.html' || here === 'report.html'))) ? 'on' : '' })));
     const wrap = $('.wrap');
     if (wrap) wrap.insertBefore(nav, wrap.firstChild);
   }

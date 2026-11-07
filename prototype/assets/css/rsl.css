@@ -144,3 +144,21 @@ table.notes td{padding:10px 12px;border-bottom:1px solid var(--line-2);vertical-
   .cat-picker .field{min-width:100%}
   .dl-grid,.mode-pick{grid-template-columns:1fr}
 }
+
+/* ---- Product report (round 3): the client's layout ------------------------ */
+.rep-table{width:100%;border-collapse:collapse;background:#fff;font-size:13.5px;color:#000}
+.rep-table th,.rep-table td{border:1px solid #000;padding:6px 10px;text-align:left;vertical-align:middle}
+.rep-table th{font-weight:700}
+.rep-table th:first-child{width:32%}
+.rep-table th:last-child{width:20%}
+.rep-table td.rp{font-weight:700;text-align:center}
+.rep-table td.none{color:var(--muted)}
+.rep-table td.flag{background:var(--amber-bg);color:#92400e}
+.rep-title h2{margin:0;font-size:14pt}
+.rep-title p{margin:2px 0 10px;font-size:9.5pt;color:#444}
+@media print{
+  .topnav,.rsl-toast{display:none!important}
+  .rep-table{font-size:10.5pt;width:99.7%}
+  .rep-table tbody{break-inside:avoid}
+  .rep-table td.flag{background:none!important;color:#000}
+}

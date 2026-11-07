@@ -44,7 +44,8 @@
             <li><a href="entry.html?cat=aafa-rsl"><b>Add row</b></a> — pick the category, the form shows exactly its columns. Section title (“AP and APEO”) is remembered for the next row. <i>Save &amp; add another</i> keeps you typing.</li>
             <li><a href="data.html"><b>Search &amp; data table</b></a> — one search box for CAS number or chemical name across all categories; each category renders as its own table with its own headings and section bands. Optional filters on any column; click a row for the full record; export CSV. Products and their attached raw materials appear above the lists when they match.</li>
             <li><a href="products.html"><b>Products &amp; raw materials</b></a> <span class="rev">Round 2</span> — create a product, tag its raw materials, search it and see everything attached. Search a raw material or a CAS number and see which products use it.</li>
-            <li><a href="import.html"><b>Excel import &amp; versions</b></a> <span class="rev">Round 2</span> — download a template for any list, fill it in, upload it, check the changes, then import. Every import is a version you can view, download or revert to.</li>
+            <li><a href="report.html"><b>Product report</b></a> <span class="rev">Round 3</span> — each product with its raw materials and CAS numbers, in your layout. Print it or download it to Excel.</li>
+<li><a href="import.html"><b>Excel import &amp; versions</b></a> <span class="rev">Round 2</span> — download a template for any list, fill it in, upload it, check the changes, then import. Every import is a version you can view, download or revert to.</li>
           </ul>
           <div class="callout warn"><b>Decisions still needed from you</b> (each drops into <code>config.js</code> once answered):
             <ol style="margin:6px 0 0;padding-left:18px">
@@ -81,6 +82,7 @@
           <li><span class="rev">Round 2</span> Search <a href="products.html?q=formaldehyde">formaldehyde</a> — finds the product through a raw material that only states CAS 50-00-0.</li>
           <li><span class="rev">Round 2</span> On <a href="import.html?ds=oekotex-step">Excel import</a>, download <b>Current data</b>, change a cell, upload it — see the change, import it, then <b>Revert</b>.</li>
           <li><span class="rev">Round 2</span> On <a href="import.html?ds=cas-screening-master">Excel import</a>, upload your CAS Screening Hub workbook as it is — the Master_Database sheet is found by itself.</li>
+          <li><span class="rev">Round 3</span> Open the <a href="report.html">Product report</a>, type a raw material or CAS number to limit it, then print or download Excel.</li>
           <li>Search <a href="data.html?q=nonyl">nonyl</a> — the same substance appears in all three lists, each with its own column layout.</li>
           <li>Search <a href="data.html?q=11066492">11066492</a> (no dashes) — still finds CAS 11066-49-2 inside a six-number cell.</li>
           <li>Search <a href="data.html?q=104-40-5">104-40-5</a> — a single number from the middle of a multi-CAS cell.</li>

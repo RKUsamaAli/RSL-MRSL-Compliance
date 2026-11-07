@@ -1,7 +1,7 @@
 meta:
   feature: RSL / MRSL restricted-substance list capture, table and search
   round: 2
-  status: round 2 built — awaiting client review
+  status: round 3 built — awaiting client review
   date: 2026-11-06
   sources:
     - AAFA RSL Release 26, page image of the "AP and APEO" table (8 columns, 3 rows)
@@ -25,6 +25,9 @@ user_journey:
   - step: Create products, tag raw materials, search and list what is attached
     state: BUILD NOW
     screen: products.html, product-form.html
+  - step: Product report (product, raw materials, CAS numbers) with print and Excel
+    state: BUILD NOW
+    screen: report.html
   - step: Bulk import from PDF
     state: PLACEHOLDER
   - step: Check a product against the limits (verdicts, dashboard as in the workbook)

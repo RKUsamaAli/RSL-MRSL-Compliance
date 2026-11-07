@@ -1,4 +1,4 @@
-# RSL / MRSL Compliance — clickable prototype (round 2)
+# RSL / MRSL Compliance — clickable prototype (round 3)
 
 Open `index.html` in any browser. No server, no build, no dependencies. Rows you add are kept in
 the browser's local storage so they survive moving between pages; **Reset demo data** on the
@@ -15,6 +15,7 @@ landing page restores the original content.
 | `data.html` | Search (CAS number / chemical name, any column, column filters) + per-category data tables + CSV export |
 | `products.html` | Round 2: product and raw-material registers with one search; each product lists its attached raw materials |
 | `product-form.html` | Round 2: create or edit a product and tag raw materials |
+| `report.html` | Round 3: product report (Product Name, Raw materials, CAS #) with print and Excel download |
 | `import.html` | Round 2: template download, upload preview, import, version history, compare, revert |
 | `change-notes.html` | Every deviation from the source documents, with the reason |
 | `docs/rsl-prototype.plan.yaml` | Staged plan, challenges to the brief, open questions |
@@ -67,6 +68,7 @@ landing page restores the original content.
 | On `data.html`, search `PROD-TEST-001` | The same attached list appears above the substance lists |
 | Click **+ New product**, tag two raw materials, add a new one, save | The product opens with all three attached; the new one got the next RM number |
 | Save another product with the same Product ID | Validation refuses the duplicate |
+| Open `report.html`, type `WA-200`, click **Print** or **Excel** | Products using that raw material, each listing all its raw materials and CAS numbers; the product cell is merged |
 
 ### E. Excel import and versions (import.html)
 
